@@ -2,6 +2,7 @@ package com.example.kotlinjwt.domain.image.controller
 
 import com.example.kotlinjwt.domain.image.service.ImageService
 import org.springframework.http.MediaType
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -19,5 +20,10 @@ class ImageController(
         @PathVariable postId: Long,
         @RequestPart("file") file: MultipartFile): String {
         return imageService.uploadImage(file, postId)
+    }
+
+    @GetMapping("/post/{postId}")
+    fun getImageUrls(@PathVariable postId: Long): List<String> {
+        return imageService.getImagesByPostId(postId)
     }
 }

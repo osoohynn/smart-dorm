@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder
 import java.io.File
 import java.io.IOException
 import java.util.UUID
@@ -43,5 +44,20 @@ class ImageService(
         imageRepository.save(image)
 
         return filename
+    }
+
+    fun getImagesByPostId(postId: Long): List<String> {
+        val images = imageRepository.findAllByPostId(postId)
+
+        if (images.isEmpty()) {
+            throw IllegalArgumentException("No images found for Post with ID $postId")
+        }
+
+        return images.map { image ->
+            ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/uploads/")
+                .path(image.filePath)
+                .toUriString()
+        }
     }
 }
