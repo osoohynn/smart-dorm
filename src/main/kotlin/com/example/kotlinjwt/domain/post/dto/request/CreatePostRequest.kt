@@ -8,5 +8,4 @@ data class CreatePostRequest(
     val content: String,
     val type: PostType,
     val location: String,
-    val file: String
 )

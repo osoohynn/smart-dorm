@@ -2,6 +2,7 @@ package com.example.kotlinjwt.domain.post.service
 
 import com.example.kotlinjwt.domain.post.domain.entity.PostEntity
 import com.example.kotlinjwt.domain.post.dto.request.CreatePostRequest
+import com.example.kotlinjwt.domain.post.dto.request.UpdatePostRequest
 import com.example.kotlinjwt.domain.post.dto.response.PostResponse
 import com.example.kotlinjwt.domain.post.error.PostError
 import com.example.kotlinjwt.domain.post.repository.PostRepository
@@ -38,5 +39,22 @@ class PostService (
         val post = postRepository.findByIdOrNull(postId) ?: throw CustomException(PostError.POST_NOT_FOUND)
 
         return PostResponse.of(post)
+    }
+
+    fun updatePost(request: UpdatePostRequest, postId: Long) {
+        val post = postRepository.findByIdOrNull(postId) ?: throw CustomException(PostError.POST_NOT_FOUND)
+
+        post.title = request.title ?: post.title
+        post.content = request.content ?: post.content
+        post.location = request.location ?: post.location
+
+        postRepository.save(post)
+    }
+
+    fun deletePost(postId: Long) {
+        if (!postRepository.existsById(postId)) {
+            throw CustomException(PostError.POST_NOT_FOUND)
+        }
+        postRepository.deleteById(postId)
     }
 }
