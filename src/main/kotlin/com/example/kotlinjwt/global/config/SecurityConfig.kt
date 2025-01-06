@@ -51,6 +51,7 @@ class SecurityConfig(
                 .requestMatchers(HttpMethod.POST, "/auth/sign-in", "/auth/sign-up", "/auth/reissue").anonymous()
                 .requestMatchers(HttpMethod.GET, "/users/me").authenticated()
                 .requestMatchers("/posts", "/posts/**").permitAll()
+                .requestMatchers("/admin/**").permitAll()
                 .anyRequest().authenticated()
         }
 

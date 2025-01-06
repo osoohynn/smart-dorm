@@ -2,11 +2,7 @@ package com.example.kotlinjwt.domain.post.domain.entity
 
 import com.example.kotlinjwt.domain.post.domain.enums.PostType
 import com.example.kotlinjwt.global.common.BaseEntity
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
-import jakarta.persistence.Table
+import jakarta.persistence.*
 
 
 @Entity
