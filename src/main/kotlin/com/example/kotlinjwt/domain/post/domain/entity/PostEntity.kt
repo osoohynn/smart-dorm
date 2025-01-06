@@ -16,8 +16,6 @@ class PostEntity (
 
     var content: String,
 
-    var file: String,
-
     val type: PostType,
 
     var isSolved: Boolean,

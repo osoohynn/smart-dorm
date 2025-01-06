@@ -8,8 +8,7 @@ data class PostResponse(
     val content: String,
     val location: String,
     val type: PostType,
-    val isSolved: Boolean,
-    val file: String
+    val isSolved: Boolean
 ) {
     companion object {
         fun of(post: PostEntity): PostResponse {
@@ -18,8 +17,7 @@ data class PostResponse(
                 content = post.content,
                 location = post.location,
                 type = post.type,
-                isSolved = post.isSolved,
-                file = post.file
+                isSolved = post.isSolved
             )
         }
     }

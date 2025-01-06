@@ -6,7 +6,6 @@ import com.example.kotlinjwt.domain.post.dto.request.UpdatePostRequest
 import com.example.kotlinjwt.domain.post.dto.response.PostResponse
 import com.example.kotlinjwt.domain.post.error.PostError
 import com.example.kotlinjwt.domain.post.repository.PostRepository
-import com.example.kotlinjwt.domain.user.error.UserError
 import com.example.kotlinjwt.global.exception.CustomException
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -20,7 +19,6 @@ class PostService (
         val post = PostEntity(
             title = request.title,
             content = request.content,
-            file = "file",
             type = request.type,
             isSolved = false,
             location = request.location,
