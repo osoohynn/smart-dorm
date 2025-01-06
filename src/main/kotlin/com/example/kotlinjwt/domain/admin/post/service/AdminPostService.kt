@@ -20,13 +20,6 @@ class AdminPostService (
         postRepository.save(post)
     }
 
-    fun deletePost(postId: Long) {
-        if (!postRepository.existsById(postId)) {
-            throw CustomException(PostError.POST_NOT_FOUND)
-        }
-        postRepository.deleteById(postId)
-    }
-
     fun getUnsolvedPosts() : List<PostResponse> {
         val posts = postRepository.findAllByIsSolved(false)
 

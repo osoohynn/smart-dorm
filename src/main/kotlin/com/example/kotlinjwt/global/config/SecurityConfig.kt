@@ -52,6 +52,7 @@ class SecurityConfig(
                 .requestMatchers(HttpMethod.GET, "/users/me").authenticated()
                 .requestMatchers("/posts", "/posts/**").permitAll()
                 .requestMatchers("/admin/**").permitAll()
+                .requestMatchers("/image/**").permitAll()
                 .anyRequest().authenticated()
         }
 
