@@ -1,11 +1,9 @@
 package com.example.kotlinjwt.domain.post.controller
 
 import com.example.kotlinjwt.domain.post.dto.request.CreatePostRequest
+import com.example.kotlinjwt.domain.post.dto.response.PostResponse
 import com.example.kotlinjwt.domain.post.service.PostService
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 
 @RestController
@@ -16,5 +14,15 @@ class PostController (
     @PostMapping
     fun createPost(@RequestBody request: CreatePostRequest) {
         postService.createPost(request)
+    }
+
+    @GetMapping
+    fun getPosts() : List<PostResponse> {
+        return postService.getPosts()
+    }
+
+    @GetMapping("/{postId}")
+    fun getPost(@PathVariable postId: Long) : PostResponse {
+        return postService.getPost(postId)
     }
 }
