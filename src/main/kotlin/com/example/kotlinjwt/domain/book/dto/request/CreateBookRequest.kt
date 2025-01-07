@@ -6,7 +6,7 @@ import java.time.LocalDateTime
 data class CreateBookRequest(
     val roomType: RoomType,
     val time: LocalDateTime,
-    val finishTime: LocalDateTime? = null,
+    val expectedTime: Int? = null,
     val roomNumber: Int? = null,
     val itemNumber: Int? = null
 )

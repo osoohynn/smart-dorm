@@ -17,7 +17,7 @@ class Book (
 
     var time: LocalDateTime,
 
-    var finishTime: LocalDateTime ?= null,
+    var expectedTime: Int ?= null,
 
     var roomNumber: Int ?= null,
 
@@ -25,5 +25,7 @@ class Book (
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    var bookedBy: User
+    var bookedBy: User,
+
+    var isFinished: Boolean
 ) : BaseEntity()
