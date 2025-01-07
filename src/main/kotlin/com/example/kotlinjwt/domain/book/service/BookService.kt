@@ -6,7 +6,6 @@ import com.example.kotlinjwt.domain.book.dto.request.UpdateBookRequest
 import com.example.kotlinjwt.domain.book.dto.response.BookResponse
 import com.example.kotlinjwt.domain.book.error.BookError
 import com.example.kotlinjwt.domain.book.repository.BookRepository
-import com.example.kotlinjwt.domain.post.error.PostError
 import com.example.kotlinjwt.global.exception.CustomException
 import com.example.kotlinjwt.global.security.SecurityHolder
 import org.springframework.data.repository.findByIdOrNull
@@ -77,4 +76,14 @@ class BookService (
 
         bookRepository.save(book)
     }
+
+    fun deleteBook(bookId: Long) {
+        if (!bookRepository.existsById(bookId)) {
+            throw CustomException(BookError.BOOK_NOT_FOUND)
+        }
+
+        bookRepository.deleteById(bookId)
+    }
+
+
 }

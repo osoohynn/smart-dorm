@@ -4,6 +4,7 @@ import com.example.kotlinjwt.domain.book.dto.request.CreateBookRequest
 import com.example.kotlinjwt.domain.book.dto.request.UpdateBookRequest
 import com.example.kotlinjwt.domain.book.dto.response.BookResponse
 import com.example.kotlinjwt.domain.book.service.BookService
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -40,6 +41,11 @@ class BookController (
 
     @PatchMapping("/{postId}")
     fun updateBook(@PathVariable postId: Long, @RequestBody request: UpdateBookRequest) {
-        return bookService.updateBook(request, postId)
+        bookService.updateBook(request, postId)
+    }
+
+    @DeleteMapping("/{postId}")
+    fun deleteBook(@PathVariable postId: Long) {
+        bookService.deleteBook(postId)
     }
 }
