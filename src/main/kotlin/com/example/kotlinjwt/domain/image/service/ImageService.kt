@@ -1,6 +1,6 @@
 package com.example.kotlinjwt.domain.image.service
 
-import com.example.kotlinjwt.domain.image.domain.ImageEntity
+import com.example.kotlinjwt.domain.image.domain.Image
 import com.example.kotlinjwt.domain.image.repository.ImageRepository
 import com.example.kotlinjwt.domain.post.error.PostError
 import com.example.kotlinjwt.domain.post.repository.PostRepository
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder
 import java.io.File
-import java.io.IOException
 import java.util.UUID
 
 
@@ -40,7 +39,7 @@ class ImageService(
 
         val post = postRepository.findByIdOrNull(postId) ?: throw CustomException(PostError.POST_NOT_FOUND)
 
-        val image = ImageEntity(filePath = filename, post = post)
+        val image = Image(filePath = filename, post = post)
         imageRepository.save(image)
 
         return filename

@@ -1,6 +1,6 @@
 package com.example.kotlinjwt.domain.image.domain
 
-import com.example.kotlinjwt.domain.post.domain.entity.PostEntity
+import com.example.kotlinjwt.domain.post.domain.entity.Post
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.FetchType
@@ -13,7 +13,7 @@ import jakarta.persistence.Table
 
 @Entity
 @Table(name = "images")
-class ImageEntity(
+class Image(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
@@ -23,5 +23,5 @@ class ImageEntity(
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
-    var post: PostEntity? = null
+    var post: Post? = null
 )
