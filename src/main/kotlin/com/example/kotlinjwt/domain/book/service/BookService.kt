@@ -36,8 +36,17 @@ class BookService (
         bookRepository.save(book)
     }
 
-//    @Transactional
-//    fun getBooks(): List<BookResponse> {
-//
-//    }
+    @Transactional
+    fun getBooks(): List<BookResponse> {
+        val books = bookRepository.findByTimeAfter(LocalDateTime.now())
+
+        return books.map { book -> BookResponse.of(book) }
+    }
+
+    @Transactional
+    fun getProgressBooks(): List<BookResponse> {
+        val books = bookRepository.findByTimeBeforeAndIsFinishedFalse(LocalDateTime.now())
+
+        return books.map { book -> BookResponse.of(book) }
+    }
 }
