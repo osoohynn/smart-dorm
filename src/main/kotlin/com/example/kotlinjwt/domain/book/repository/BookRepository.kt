@@ -1,11 +1,19 @@
 package com.example.kotlinjwt.domain.book.repository
 
 import com.example.kotlinjwt.domain.book.domain.entity.Book
+import com.example.kotlinjwt.domain.book.domain.enums.RoomType
 import org.springframework.data.jpa.repository.JpaRepository
 import java.time.LocalDateTime
 
 interface BookRepository : JpaRepository<Book, Long> {
-    fun findByTimeBeforeAndIsFinishedFalse(time: LocalDateTime): List<Book>
+    fun findByTimeBeforeAndIsFinishedFalseAndRoomType(
+        time: LocalDateTime,
+        roomType: RoomType
+    ): List<Book>
 
-    fun findByTimeAfter(time: LocalDateTime): List<Book>
+    fun findByTimeAfterAndRoomType(
+        time: LocalDateTime,
+        roomType: RoomType
+    ): List<Book>
+
 }

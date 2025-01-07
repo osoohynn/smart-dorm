@@ -1,5 +1,6 @@
 package com.example.kotlinjwt.domain.book.controller
 
+import com.example.kotlinjwt.domain.book.domain.enums.RoomType
 import com.example.kotlinjwt.domain.book.dto.request.CreateBookRequest
 import com.example.kotlinjwt.domain.book.dto.request.UpdateBookRequest
 import com.example.kotlinjwt.domain.book.dto.response.BookResponse
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 
@@ -25,13 +27,13 @@ class BookController (
     }
 
     @GetMapping
-    fun getBooks() : List<BookResponse> {
-        return bookService.getBooks()
+    fun getBooks(@RequestParam("type") type: RoomType) : List<BookResponse> {
+        return bookService.getBooks(type)
     }
 
     @GetMapping("/progress")
-    fun getProgressBooks() : List<BookResponse> {
-        return bookService.getProgressBooks()
+    fun getProgressBooks(@RequestParam("type") type: RoomType) : List<BookResponse> {
+        return bookService.getProgressBooks(type)
     }
 
     @PatchMapping("/finish/{postId}")

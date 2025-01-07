@@ -1,6 +1,7 @@
 package com.example.kotlinjwt.domain.book.service
 
 import com.example.kotlinjwt.domain.book.domain.entity.Book
+import com.example.kotlinjwt.domain.book.domain.enums.RoomType
 import com.example.kotlinjwt.domain.book.dto.request.CreateBookRequest
 import com.example.kotlinjwt.domain.book.dto.request.UpdateBookRequest
 import com.example.kotlinjwt.domain.book.dto.response.BookResponse
@@ -39,15 +40,15 @@ class BookService (
     }
 
     @Transactional
-    fun getBooks(): List<BookResponse> {
-        val books = bookRepository.findByTimeAfter(LocalDateTime.now())
+    fun getBooks(type: RoomType): List<BookResponse> {
+        val books = bookRepository.findByTimeAfterAndRoomType(LocalDateTime.now(), type)
 
         return books.map { book -> BookResponse.of(book) }
     }
 
     @Transactional
-    fun getProgressBooks(): List<BookResponse> {
-        val books = bookRepository.findByTimeBeforeAndIsFinishedFalse(LocalDateTime.now())
+    fun getProgressBooks(type: RoomType): List<BookResponse> {
+        val books = bookRepository.findByTimeBeforeAndIsFinishedFalseAndRoomType(LocalDateTime.now(), type)
 
         return books.map { book -> BookResponse.of(book) }
     }
@@ -84,6 +85,5 @@ class BookService (
 
         bookRepository.deleteById(bookId)
     }
-
 
 }
