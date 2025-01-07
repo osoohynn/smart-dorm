@@ -28,3 +28,6 @@ logging:
   level:
     org.springframework.web: DEBUG
     org.springframework.http: DEBUG
+
+server:
+  port: 8081
