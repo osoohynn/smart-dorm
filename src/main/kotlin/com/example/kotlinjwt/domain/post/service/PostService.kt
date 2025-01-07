@@ -1,6 +1,6 @@
 package com.example.kotlinjwt.domain.post.service
 
-import com.example.kotlinjwt.domain.post.domain.entity.PostEntity
+import com.example.kotlinjwt.domain.post.domain.entity.Post
 import com.example.kotlinjwt.domain.post.dto.request.CreatePostRequest
 import com.example.kotlinjwt.domain.post.dto.request.UpdatePostRequest
 import com.example.kotlinjwt.domain.post.dto.response.PostResponse
@@ -16,7 +16,7 @@ class PostService (
     private val postRepository: PostRepository
 ){
     fun createPost(request: CreatePostRequest) {
-        val post = PostEntity(
+        val post = Post(
             title = request.title,
             content = request.content,
             type = request.type,
