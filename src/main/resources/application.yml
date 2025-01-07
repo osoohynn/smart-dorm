@@ -6,7 +6,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
   data:
     redis:
       host: localhost
@@ -17,3 +17,14 @@ spring:
     secret-key: ${SECRET_KEY}
     access-exp: 360000
     refresh-exp: 8640000
+  upload:
+    dir: /Users/dgsw38/uploads/smart-dorm-files
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 20MB
+logging:
+  level:
+    org.springframework.web: DEBUG
+    org.springframework.http: DEBUG

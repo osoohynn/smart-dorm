@@ -54,6 +54,7 @@ class SecurityConfig(
                 .requestMatchers("/admin/**").permitAll()
                 .requestMatchers("/image/**").permitAll()
                 .requestMatchers("/uploads/**").permitAll()
+                .requestMatchers("/books", "/books/**").permitAll()
                 .anyRequest().authenticated()
         }
 
