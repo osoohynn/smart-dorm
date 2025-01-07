@@ -26,7 +26,7 @@ class BookService (
             throw CustomException(BookError.PASSED_TIME)
         }
 
-        if (checkBook(request)) {
+        if (checkBook(request.roomType, request.time, request.expectedTime, request.number)) {
             throw CustomException(BookError.TIME_UNAVAILABLE)
         }
 
@@ -35,6 +35,7 @@ class BookService (
             number = request.number,
             time = request.time,
             endTime = request.time.plusMinutes(request.expectedTime.toLong()),
+            expectedTime = request.expectedTime,
             bookedBy = securityHolder.user,
             isFinished = false
         )
@@ -73,8 +74,16 @@ class BookService (
             throw CustomException(BookError.PASSED_TIME)
         }
 
+        if (checkBook(book.roomType,
+                request.time?: book.time,
+                request.expectedTime?: book.expectedTime,
+                request.number?: book.number)) {
+            throw CustomException(BookError.TIME_UNAVAILABLE)
+        }
+
         book.time = request.time ?: book.time
         book.number = request.number ?: book.number
+        book.expectedTime = request.expectedTime ?: book.expectedTime
         if (request.expectedTime != null) {
             book.endTime = book.time.plusMinutes(request.expectedTime.toLong()) ?: book.endTime
         }
@@ -90,14 +99,14 @@ class BookService (
         bookRepository.deleteById(bookId)
     }
 
-    fun checkBook(request: CreateBookRequest): Boolean {
-        val requestEndTime = request.time.plusMinutes(request.expectedTime.toLong())
+    fun checkBook(type: RoomType, time: LocalDateTime, expectedTime: Int, number: Int): Boolean {
+        val requestEndTime = time.plusMinutes(expectedTime.toLong())
 
         val isOverlapping = bookRepository.existsByRoomTypeAndNumberAndTimeLessThanEqualAndEndTimeGreaterThanEqual(
-            roomType = request.roomType,
-            number = request.number,
+            roomType = type,
+            number = number,
             time = requestEndTime,
-            endTime = request.time,
+            endTime = time,
         )
 
         return isOverlapping

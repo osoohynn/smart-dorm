@@ -8,6 +8,7 @@ import java.time.LocalDateTime
 
 
 @Entity
+@Table(name = "books")
 class Book (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,6 +19,8 @@ class Book (
     var time: LocalDateTime,
 
     var endTime: LocalDateTime,
+
+    var expectedTime: Int,
 
     var number: Int,
 
