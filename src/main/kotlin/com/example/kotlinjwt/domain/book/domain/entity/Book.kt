@@ -1,11 +1,9 @@
 package com.example.kotlinjwt.domain.book.domain.entity
 
 import com.example.kotlinjwt.domain.book.domain.enums.RoomType
+import com.example.kotlinjwt.domain.user.domain.entity.User
 import com.example.kotlinjwt.global.common.BaseEntity
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
+import jakarta.persistence.*
 import java.time.LocalDateTime
 
 
@@ -24,4 +22,8 @@ class Book (
     var roomNumber: Int ?= null,
 
     var itemNumber: Int ?= null,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    var bookedBy: User
 ) : BaseEntity()

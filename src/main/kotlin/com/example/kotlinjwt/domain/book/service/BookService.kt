@@ -5,6 +5,7 @@ import com.example.kotlinjwt.domain.book.dto.request.CreateBookRequest
 import com.example.kotlinjwt.domain.book.error.BookError
 import com.example.kotlinjwt.domain.book.repository.BookRepository
 import com.example.kotlinjwt.global.exception.CustomException
+import com.example.kotlinjwt.global.security.SecurityHolder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
@@ -12,7 +13,8 @@ import java.time.LocalDateTime
 
 @Service
 class BookService (
-    private val bookRepository: BookRepository
+    private val bookRepository: BookRepository,
+    private val securityHolder: SecurityHolder
 ) {
     @Transactional
     fun createBook(request: CreateBookRequest) {
@@ -30,6 +32,7 @@ class BookService (
             itemNumber = request.itemNumber,
             time = request.time,
             finishTime = request.finishTime,
+            bookedBy = securityHolder.user
         )
 
         bookRepository.save(book)
