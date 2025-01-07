@@ -55,7 +55,7 @@ class SecurityConfig(
                 .requestMatchers("/image/**").permitAll()
                 .requestMatchers("/uploads/**").permitAll()
                 .requestMatchers("/books", "/books/**").permitAll()
-                .requestMatchers("/doors").permitAll()
+                .requestMatchers("/doors", "/doors/**").permitAll()
                 .anyRequest().authenticated()
         }
 

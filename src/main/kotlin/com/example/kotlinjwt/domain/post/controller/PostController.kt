@@ -1,10 +1,13 @@
 package com.example.kotlinjwt.domain.post.controller
 
+import com.example.kotlinjwt.domain.post.domain.enums.PostType
 import com.example.kotlinjwt.domain.post.dto.request.CreatePostRequest
 import com.example.kotlinjwt.domain.post.dto.request.UpdatePostRequest
 import com.example.kotlinjwt.domain.post.dto.response.PostResponse
 import com.example.kotlinjwt.domain.post.service.PostService
+import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.multipart.MultipartFile
 
 
 @RestController
@@ -12,8 +15,15 @@ import org.springframework.web.bind.annotation.*
 class PostController (
     private val postService: PostService
 ){
-    @PostMapping
-    fun createPost(@RequestBody request: CreatePostRequest) {
+    @PostMapping(consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
+    fun createPost(
+        @RequestParam type: PostType,
+        @RequestParam title: String,
+        @RequestParam content: String,
+        @RequestParam location: String,
+        @RequestPart("files") files: List<MultipartFile>
+    ) {
+        val request = CreatePostRequest(type = type, title = title, content = content, location = location)
         postService.createPost(request)
     }
 
