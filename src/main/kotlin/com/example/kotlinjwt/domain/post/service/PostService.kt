@@ -1,5 +1,6 @@
 package com.example.kotlinjwt.domain.post.service
 
+import com.example.kotlinjwt.domain.image.service.ImageService
 import com.example.kotlinjwt.domain.post.domain.entity.Post
 import com.example.kotlinjwt.domain.post.dto.request.CreatePostRequest
 import com.example.kotlinjwt.domain.post.dto.request.UpdatePostRequest
@@ -7,24 +8,39 @@ import com.example.kotlinjwt.domain.post.dto.response.PostResponse
 import com.example.kotlinjwt.domain.post.error.PostError
 import com.example.kotlinjwt.domain.post.repository.PostRepository
 import com.example.kotlinjwt.global.exception.CustomException
+import com.example.kotlinjwt.global.security.SecurityHolder
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
+import org.springframework.web.multipart.MultipartFile
 
 
 @Service
 class PostService (
-    private val postRepository: PostRepository
+    private val postRepository: PostRepository,
+    private val securityHolder: SecurityHolder,
+    private val imageService: ImageService
 ){
-    fun createPost(request: CreatePostRequest) {
+    @Transactional
+    fun createPost(request: CreatePostRequest, files: List<MultipartFile>) {
         val post = Post(
             title = request.title,
             content = request.content,
             type = request.type,
             isSolved = false,
             location = request.location,
+            author = securityHolder.user
         )
 
         postRepository.save(post)
+
+        if (files.size > 5) {
+            throw CustomException(PostError.FILE_UPLOAD_FIVE)
+        }
+
+        for (file in files) {
+            imageService.uploadImage(file, post.id!!)
+        }
     }
 
     fun getPosts(): List<PostResponse> {

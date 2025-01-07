@@ -21,10 +21,10 @@ class PostController (
         @RequestParam title: String,
         @RequestParam content: String,
         @RequestParam location: String,
-        @RequestPart("files") files: List<MultipartFile>
+        @RequestPart("files", required = false) files: List<MultipartFile>
     ) {
         val request = CreatePostRequest(type = type, title = title, content = content, location = location)
-        postService.createPost(request)
+        postService.createPost(request, files)
     }
 
     @GetMapping
