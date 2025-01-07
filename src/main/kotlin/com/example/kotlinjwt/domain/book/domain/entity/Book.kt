@@ -17,11 +17,9 @@ class Book (
 
     var time: LocalDateTime,
 
-    var expectedTime: Int ?= null,
+    var endTime: LocalDateTime,
 
-    var roomNumber: Int ?= null,
-
-    var itemNumber: Int ?= null,
+    var number: Int,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

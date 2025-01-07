@@ -26,12 +26,15 @@ class BookService (
             throw CustomException(BookError.PASSED_TIME)
         }
 
+        if (checkBook(request)) {
+            throw CustomException(BookError.TIME_UNAVAILABLE)
+        }
+
         val book = Book(
             roomType = request.roomType,
-            roomNumber = request.roomNumber,
-            itemNumber = request.itemNumber,
+            number = request.number,
             time = request.time,
-            expectedTime = request.expectedTime,
+            endTime = request.time.plusMinutes(request.expectedTime.toLong()),
             bookedBy = securityHolder.user,
             isFinished = false
         )
@@ -71,9 +74,10 @@ class BookService (
         }
 
         book.time = request.time ?: book.time
-        book.expectedTime = request.expectedTime ?: book.expectedTime
-        book.roomNumber = request.roomNumber ?: book.roomNumber
-        book.itemNumber = request.itemNumber ?: book.itemNumber
+        book.number = request.number ?: book.number
+        if (request.expectedTime != null) {
+            book.endTime = book.time.plusMinutes(request.expectedTime.toLong()) ?: book.endTime
+        }
 
         bookRepository.save(book)
     }
@@ -84,6 +88,19 @@ class BookService (
         }
 
         bookRepository.deleteById(bookId)
+    }
+
+    fun checkBook(request: CreateBookRequest): Boolean {
+        val requestEndTime = request.time.plusMinutes(request.expectedTime.toLong())
+
+        val isOverlapping = bookRepository.existsByRoomTypeAndNumberAndTimeLessThanEqualAndEndTimeGreaterThanEqual(
+            roomType = request.roomType,
+            number = request.number,
+            time = requestEndTime,
+            endTime = request.time,
+        )
+
+        return isOverlapping
     }
 
 }

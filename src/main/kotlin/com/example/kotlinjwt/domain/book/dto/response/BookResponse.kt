@@ -7,18 +7,16 @@ import java.time.LocalDateTime
 data class BookResponse(
     val roomType: RoomType,
     val time: LocalDateTime,
-    val expectedTime: Int? = null,
-    val roomNumber: Int? = null,
-    val itemNumber: Int? = null
+    val endTime: LocalDateTime,
+    val number: Int
 ) {
     companion object {
         fun of(book: Book): BookResponse {
             return BookResponse(
                 roomType = book.roomType,
                 time = book.time,
-                expectedTime = book.expectedTime,
-                roomNumber = book.roomNumber,
-                itemNumber = book.itemNumber
+                endTime = book.endTime,
+                number = book.number,
             )
         }
     }

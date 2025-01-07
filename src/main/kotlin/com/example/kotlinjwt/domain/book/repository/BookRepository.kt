@@ -16,4 +16,11 @@ interface BookRepository : JpaRepository<Book, Long> {
         roomType: RoomType
     ): List<Book>
 
+    fun existsByRoomTypeAndNumberAndTimeLessThanEqualAndEndTimeGreaterThanEqual(
+        roomType: RoomType,
+        number: Int,
+        time: LocalDateTime,
+        endTime: LocalDateTime
+    ): Boolean
+
 }
