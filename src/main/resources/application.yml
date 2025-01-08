@@ -28,6 +28,11 @@ logging:
   level:
     org.springframework.web: DEBUG
     org.springframework.http: DEBUG
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs
 
 server:
   port: 8080
