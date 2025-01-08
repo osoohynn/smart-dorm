@@ -23,6 +23,10 @@ class PostService (
 ){
     @Transactional
     fun createPost(request: CreatePostRequest, files: List<MultipartFile>) {
+        if (files.size > 5) {
+            throw CustomException(PostError.FILE_UPLOAD_FIVE)
+        }
+
         val post = Post(
             title = request.title,
             content = request.content,
@@ -33,10 +37,6 @@ class PostService (
         )
 
         postRepository.save(post)
-
-        if (files.size > 5) {
-            throw CustomException(PostError.FILE_UPLOAD_FIVE)
-        }
 
         for (file in files) {
             imageService.uploadImage(file, post.id!!)

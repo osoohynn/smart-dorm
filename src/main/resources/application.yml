@@ -18,7 +18,7 @@ spring:
     access-exp: 360000
     refresh-exp: 8640000
   upload:
-    dir: /Users/dgsw38/uploads/smart-dorm-files
+    dir: ${UPLOAD_DIR}
   servlet:
     multipart:
       enabled: true

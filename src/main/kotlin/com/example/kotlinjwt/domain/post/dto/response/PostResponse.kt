@@ -4,7 +4,9 @@ import com.example.kotlinjwt.domain.post.domain.entity.Post
 import com.example.kotlinjwt.domain.post.domain.enums.PostType
 import com.example.kotlinjwt.domain.user.domain.entity.User
 import com.example.kotlinjwt.domain.user.dto.response.UserResponse
+import io.swagger.v3.oas.annotations.media.Schema
 
+@Schema(description = "게시글 조회했을 때 상세 내용")
 data class PostResponse(
     val title: String,
     val content: String,
