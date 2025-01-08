@@ -30,4 +30,4 @@ logging:
     org.springframework.http: DEBUG
 
 server:
-  port: 8081
+  port: 8080
