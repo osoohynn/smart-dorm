@@ -50,12 +50,11 @@ class SecurityConfig(
                 .requestMatchers(HttpMethod.GET, "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/auth/sign-in", "/auth/sign-up", "/auth/reissue").anonymous()
                 .requestMatchers(HttpMethod.GET, "/users/me").authenticated()
-                .requestMatchers("/posts", "/posts/**").permitAll()
-                .requestMatchers("/admin/**").permitAll()
-                .requestMatchers("/image/**").permitAll()
+                .requestMatchers("/posts", "/posts/**").authenticated()
+                .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/uploads/**").permitAll()
-                .requestMatchers("/books", "/books/**").permitAll()
-                .requestMatchers("/doors", "/doors/**").permitAll()
+                .requestMatchers("/books", "/books/**").authenticated()
+                .requestMatchers("/doors", "/doors/**").authenticated()
                 .anyRequest().authenticated()
         }
 
