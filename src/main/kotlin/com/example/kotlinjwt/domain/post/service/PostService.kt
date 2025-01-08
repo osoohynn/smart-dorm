@@ -51,8 +51,9 @@ class PostService (
 
     fun getPost(postId: Long): PostResponse {
         val post = postRepository.findByIdOrNull(postId) ?: throw CustomException(PostError.POST_NOT_FOUND)
+        val files = imageService.getImagesByPostId(postId)
 
-        return PostResponse.of(post)
+        return PostResponse.of(post, files)
     }
 
     fun updatePost(request: UpdatePostRequest, postId: Long) {

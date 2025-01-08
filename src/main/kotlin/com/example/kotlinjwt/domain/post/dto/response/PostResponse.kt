@@ -13,17 +13,19 @@ data class PostResponse(
     val location: String,
     val type: PostType,
     val isSolved: Boolean,
-    val author: UserResponse
+    val author: UserResponse,
+    val images: List<String>? = null
 ) {
     companion object {
-        fun of(post: Post): PostResponse {
+        fun of(post: Post, files: List<String>?= null): PostResponse {
             return PostResponse(
                 title = post.title,
                 content = post.content,
                 location = post.location,
                 type = post.type,
                 isSolved = post.isSolved,
-                author = UserResponse.of(post.author)
+                author = UserResponse.of(post.author),
+                images = files
             )
         }
     }

@@ -15,15 +15,15 @@ import org.springframework.web.multipart.MultipartFile
 class ImageController(
     private val imageService: ImageService
 ) {
-    @PostMapping("/upload/{postId}", consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
-    fun uploadImage(
-        @PathVariable postId: Long,
-        @RequestPart("file") file: MultipartFile): String {
-        return imageService.uploadImage(file, postId)
-    }
-
-    @GetMapping("/post/{postId}")
-    fun getImageUrls(@PathVariable postId: Long): List<String> {
-        return imageService.getImagesByPostId(postId)
-    }
+//    @PostMapping("/upload/{postId}", consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
+//    fun uploadImage(
+//        @PathVariable postId: Long,
+//        @RequestPart("file") file: MultipartFile): String {
+//        return imageService.uploadImage(file, postId)
+//    }
+//
+//    @GetMapping("/post/{postId}")
+//    fun getImageUrls(@PathVariable postId: Long): List<String> {
+//        return imageService.getImagesByPostId(postId)
+//    }
 }
